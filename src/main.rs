@@ -9,5 +9,5 @@ fn main() {
         process::exit(1);
     });
 
-
+    maze::run(cfg);
 }
