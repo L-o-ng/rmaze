@@ -8,10 +8,10 @@ impl Config {
         if args.len() < 2 {
             return Err("Missing Arguements!");  
         }
-        if let Err(_) = args[0].parse::<i32>() {
+        if args[0].parse::<i32>().is_err() {
             return Err("Width must be an integer!");
         }
-        if let Err(_) = args[1].parse::<i32>() {
+        if args[1].parse::<i32>().is_err() {
             return Err("Height must be an integer!");
         }
 

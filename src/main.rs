@@ -1,6 +1,6 @@
 use std::{env, process};
-use cmaze::conf::Config;
-use cmaze::maze;
+use rmaze::conf::Config;
+use rmaze::maze;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
