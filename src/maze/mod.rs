@@ -1,7 +1,12 @@
 use crate::conf::Config;
 
 pub fn run(args: Config) {
-    todo!()
+    let m = Maze::from(
+        args.width.parse::<i32>().unwrap(),
+        args.height.parse::<i32>().unwrap());
+
+    m.init();
+
 }
 
 struct Maze {
@@ -21,6 +26,20 @@ impl Maze {
             h_actual: 2 * height + 1
         }
     }
+
+    fn init(mut self) -> Self {
+        for y in 0..self.h_actual {
+            for x in 0..self.w_actual {
+                if y % 2 == 0 && x % 2 == 0 {
+                    self.cells.append(&mut vec![Cell::from(x, y, false, false)]);
+                }
+                else {
+                    self.cells.append(&mut vec![Cell::from(x, y, false, true)]);
+                }
+            }
+        }
+        self
+    }
 }
 
 struct Cell {
@@ -29,8 +48,8 @@ struct Cell {
     b: bool, // represents blocked status
 }
 impl Cell {
-    fn from(coord: Coord, v: bool, b: bool) -> Self{
-        Self{coord, v, b}
+    fn from(x: i32, y: i32, v: bool, b: bool) -> Self{
+        Self{coord: Coord::from(x, y), v, b}
     }
 }
 
