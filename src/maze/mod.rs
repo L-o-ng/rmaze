@@ -1,3 +1,5 @@
+use std::cmp::min;
+
 use rand::Rng;
 
 use crate::conf::Config;
@@ -65,7 +67,11 @@ impl Maze {
         todo!()
     }
 
-
+    fn set_wall(&mut self, x1: i32, y1: i32, x2: i32, y2: i32, new: bool) {
+        let m_x = min(x1, x2) + (x1 - x2).abs() / 2;
+        let m_y = min(y1, y2) + (y1 - y2).abs() / 2;
+        self.cells[(m_y * self.h_actual + m_x) as usize].v = new;
+    }
 
     fn get_unv_cells(&self, x: i32, y: i32) -> Vec<&Cell> {
         let mut c = vec![];
