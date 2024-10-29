@@ -60,7 +60,7 @@ impl Maze {
             if t.v {
                 return;
             }
-
+            //Self::set_wall(cell.coord.x, cell.coord.y, t.coord.x, t.coord.y, true);
             
         }
 
