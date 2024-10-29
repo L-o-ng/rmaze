@@ -1,3 +1,5 @@
+use rand::Rng;
+
 use crate::conf::Config;
 
 pub fn run(args: Config) {
@@ -39,6 +41,48 @@ impl Maze {
             }
         }
         self
+    }
+
+    fn build(&mut self, mut cell: Cell) {
+        cell.v = true;
+        let unv = Self::get_unv_cells(
+            &self,
+            cell.coord.x, 
+            cell.coord.y);
+        
+        while unv.len() > 0 {
+            let t = unv[rand::thread_rng()
+                .gen_range(0..unv.len()) as usize
+                ];
+
+            if t.v {
+                return;
+            }
+
+            
+        }
+
+        todo!()
+    }
+
+
+
+    fn get_unv_cells(&self, x: i32, y: i32) -> Vec<&Cell> {
+        let mut c = vec![];
+        if y - 2 >= 0 && !self.cells[((y - 2) * self.h_actual + x) as usize].v {
+            c.push(&self.cells[((y - 2) * self.h_actual + x) as usize]);
+        }
+        if x + 2 < self.w_actual && !self.cells[(y * self.h_actual + x + 2) as usize].v {
+            c.push(&self.cells[(y * self.h_actual + x + 2) as usize]);
+        }
+        if y + 2 < self.h_actual && !self.cells[((y + 2) * self.h_actual + x) as usize].v {
+            c.push(&self.cells[((y + 2) * self.h_actual + x) as usize]);
+        }
+        if x - 2 >= 0 && !self.cells[(y * self.h_actual + x - 2) as usize].v {
+            c.push(&self.cells[(y * self.h_actual + x - 2) as usize]);
+        }
+
+        c
     }
 }
 
